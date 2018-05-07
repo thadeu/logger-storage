@@ -1,0 +1,18 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true
+  },
+  "ecmaFeatures": {
+    "jsx": true,
+    "classes": true,
+    "experimentalObjectRestSpread": true,
+    "modules": true
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "rules": {}
+}
