@@ -20,6 +20,18 @@ import * as loggerStorage from 'logger-storage'
 * clear -> clear storage
 * options -> determine if override methods console.*
 
+### options.override
+
+Type: `Boolean`
+
+Optional logger override methods, by default it will be false.
+
+### options.clearAlways
+
+Type: `Boolean`
+
+Optional logger clearAlways methods, by default it will be false.
+
 ## Do you developer?
 
 **starting project**
