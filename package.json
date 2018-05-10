@@ -1,6 +1,6 @@
 {
   "name": "logger-storage",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "console.log out of the box, send to localStorage easily",
   "keywords": [
     "console",
