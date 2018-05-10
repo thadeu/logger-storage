@@ -7,7 +7,7 @@ Maintainer Thadeu Esteves Jr. <tadeuu@gmail.com>
 ## how to use?
 
 ```js
-import * as loggerStorage from 'logger-storage'
+import * as loggerStorage from '@thadeu/logger-storage'
 ```
 
 ## Methods available
