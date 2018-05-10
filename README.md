@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/thadeu/logger-storage.svg?branch=master)](https://travis-ci.org/thadeu/logger-storage)
 
+[![Coverage Status](https://coveralls.io/repos/github/thadeu/logger-storage/badge.svg?branch=master)](https://coveralls.io/github/thadeu/logger-storage?branch=master)
+
 # Logger to localStorage
 
 Maintainer Thadeu Esteves Jr. <tadeuu@gmail.com>
