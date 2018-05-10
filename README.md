@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/thadeu/logger-storage.svg?branch=master)](https://travis-ci.org/thadeu/logger-storage)
+
 # Logger to localStorage
 
 Maintainer Thadeu Esteves Jr. <tadeuu@gmail.com>
