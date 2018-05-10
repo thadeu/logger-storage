@@ -1,24 +1,22 @@
-import { setItem, getItem } from './storage'
 export { clear } from './storage'
+
+import { setItem, getItem, clear } from './storage'
 export { all, filter, logs, errors, warns, infos } from './filters'
 
-export function options(options) {
+export function sync(options) {
   options = options || {};
 
-  const override = options.override || false;
-  
-  const clearAlways = options.clearAlways || false;
+  const isStorage = ('isStorage' in options) ? options.isStorage : true;
+  const reloadClear = ('reloadClear' in options) ? options.reloadClear : true;
 
-  onOverride(override)
-  
-  if (clearAlways) {
-    window.onload = () => clearStore()
+  if (reloadClear) {
+    clear()
   }
-
+  
+  onStorage(isStorage)
+  
   return {
-    ...options,
-    isOverride: () => override,
-    clearAlways: () => clearAlways
+    isStorage: () => isStorage,
   }
 }
 
@@ -43,7 +41,7 @@ export function logger(text, data = {}) {
   return items
 }
 
-function onOverride(override) {
+function onStorage(isStorage) {
   const $_log = window.console.log;
   const $_info = window.console.info;
   const $_error = window.console.error;
@@ -52,31 +50,43 @@ function onOverride(override) {
   const console = window.console;
 
   console.error = (message) => {
-    $_error.apply(console, arguments);
-    if (override){
+    $_error(message);
+    
+    if (isStorage){
       logger(message, { type: 'error'})
     }
+
+    return message
   };
   
   console.log = (message) => {
-    $_log.apply(console, arguments);
-    if (override){
+    $_log(message);
+    
+    if (isStorage){
       logger(message, { type: 'log'})
     }
+
+    return message
   };
   
   console.warn = (message) => {
-    $_warn.apply(console, arguments)
-    if (override){
+    $_warn(message)
+    
+    if (isStorage){
       logger(message, { type: 'warn'})
     }
+
+    return message
   }
   
   console.info = (message) => {
-    $_info.apply(console, arguments)
-    if (override){
+    $_info(message)
+    
+    if (isStorage){
       logger(message, { type: 'info'})
     }
+
+    return message
   }
 }
 

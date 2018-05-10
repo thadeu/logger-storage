@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-let filename = 'web-console.js';
+let filename = 'logger-storage.js';
 let plugins = [];
 
 const htmlPlugin = new HtmlWebpackPlugin({
@@ -9,7 +9,7 @@ const htmlPlugin = new HtmlWebpackPlugin({
 })
 
 const config = {
-  entry: path.resolve(__dirname, "src/web-console.js"),
+  entry: path.resolve(__dirname, "src/logger-storage.js"),
   devtool: "source-map",
   target: "web",
   node: {
@@ -18,7 +18,7 @@ const config = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: filename,
-    library: "webConsole"
+    library: "loggerStorage"
   },
   module: {
     rules: [

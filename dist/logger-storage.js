@@ -3838,34 +3838,28 @@ Object.defineProperty(exports, 'infos', {
     return _filters.infos;
   }
 });
-exports.options = options;
+exports.sync = sync;
 exports.logger = logger;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function options(options) {
+function sync(options) {
   options = options || {};
 
-  var override = options.override || false;
+  var _isStorage = 'isStorage' in options ? options.isStorage : true;
+  var reloadClear = 'reloadClear' in options ? options.reloadClear : true;
 
-  var _clearAlways = options.clearAlways || false;
-
-  onOverride(override);
-
-  if (_clearAlways) {
-    window.onload = function () {
-      return clearStore();
-    };
+  if (reloadClear) {
+    (0, _storage.clear)();
   }
 
-  return (0, _extends3.default)({}, options, {
-    isOverride: function isOverride() {
-      return override;
-    },
-    clearAlways: function clearAlways() {
-      return _clearAlways;
+  onStorage(_isStorage);
+
+  return {
+    isStorage: function isStorage() {
+      return _isStorage;
     }
-  });
+  };
 }
 
 function logger(text) {
@@ -3890,9 +3884,7 @@ function logger(text) {
   return items;
 }
 
-function onOverride(override) {
-  var _arguments = arguments;
-
+function onStorage(isStorage) {
   var $_log = window.console.log;
   var $_info = window.console.info;
   var $_error = window.console.error;
@@ -3901,31 +3893,43 @@ function onOverride(override) {
   var console = window.console;
 
   console.error = function (message) {
-    $_error.apply(console, _arguments);
-    if (override) {
+    $_error(message);
+
+    if (isStorage) {
       logger(message, { type: 'error' });
     }
+
+    return message;
   };
 
   console.log = function (message) {
-    $_log.apply(console, _arguments);
-    if (override) {
+    $_log(message);
+
+    if (isStorage) {
       logger(message, { type: 'log' });
     }
+
+    return message;
   };
 
   console.warn = function (message) {
-    $_warn.apply(console, _arguments);
-    if (override) {
+    $_warn(message);
+
+    if (isStorage) {
       logger(message, { type: 'warn' });
     }
+
+    return message;
   };
 
   console.info = function (message) {
-    $_info.apply(console, _arguments);
-    if (override) {
+    $_info(message);
+
+    if (isStorage) {
       logger(message, { type: 'info' });
     }
+
+    return message;
   };
 }
 
