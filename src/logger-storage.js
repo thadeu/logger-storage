@@ -80,4 +80,4 @@ function onOverride(override) {
   }
 }
 
-window.STORAGE_KEY = 'wc:logger'
+window.STORAGE_KEY = 'logger:storage'

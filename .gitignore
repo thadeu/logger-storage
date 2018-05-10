@@ -30,3 +30,4 @@ node_modules
 package-lock.json
 public/
 coverage
+*.tgz

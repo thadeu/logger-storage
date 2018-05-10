@@ -26,4 +26,4 @@ Object.defineProperty(window, 'localStorage', {
   value: localStorageMock,
 })
 
-global.STORAGE_KEY = 'wc:logger'
+global.STORAGE_KEY = 'logger:storage'

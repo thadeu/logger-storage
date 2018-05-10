@@ -1,11 +1,11 @@
-# Web Console to localStorage
+# Logger to localStorage
 
 Maintainer Thadeu Esteves Jr. <tadeuu@gmail.com>
 
 ## how to use?
 
 ```js
-import * as webConsole from '@thadeu/web-console'
+import * as loggerStorage from 'logger-storage'
 ```
 
 ## Methods available
@@ -25,7 +25,7 @@ import * as webConsole from '@thadeu/web-console'
 **starting project**
 
 ```js
-npm run start or yarn start
+npm run start
 ```
 
 **watching tests**
