@@ -1,6 +1,6 @@
 import { setItem, getItem } from '../storage'
 
-export function all(key) {
+export function all(key = STORAGE_KEY) {
   return new Promise((resolve, reject) => {
     try{
       let items = getItem(key)
