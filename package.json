@@ -1,5 +1,5 @@
 {
-  "name": "@thadeu/web-console",
+  "name": "web-console",
   "version": "0.0.1",
   "description": "console.log out of the box, send to localStorage easily",
   "keywords": [
