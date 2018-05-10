@@ -21,9 +21,9 @@ If you're using Yarn (and you should):
 yarn add @thadeu/logger-storage
 ```
 
-If you dont use ES67/8/x, use unpkg file
+If you dont use ES6/7/8/x, use unpkg file
 
-[https://unpkg.com/@thadeu/logger-storage@0.1.0/dist/logger-storage.min.js](https://unpkg.com/@thadeu/logger-storage@0.1.0/dist/logger-storage.min.js)
+[https://unpkg.com/@thadeu/logger-storage/dist/logger-storage.min.js](https://unpkg.com/@thadeu/logger-storage/dist/logger-storage.min.js)
 
 # API
 
