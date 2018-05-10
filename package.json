@@ -11,7 +11,7 @@
   ],
   "author": "Thadeu Esteves Jr",
   "main": "dist/logger-storage.js",
-  "module": "src/index.js",
+  "module": "src/logger-storage.js",
   "files": [
     "src/logger-storage.js",
     "dist/**/*",
