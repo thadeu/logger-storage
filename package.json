@@ -1,7 +1,7 @@
 {
   "name": "@thadeu/web-console",
   "version": "0.0.1",
-  "description": "Generate console.log to output area",
+  "description": "console.log out of the box, send to localStorage easily",
   "keywords": [
     "console",
     "web-console",
