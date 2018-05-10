@@ -1,16 +1,27 @@
-[![Build Status](https://travis-ci.org/thadeu/logger-storage.svg?branch=master)](https://travis-ci.org/thadeu/logger-storage)
+# logger-storage
 
-# Logger to localStorage
+[![NPM package version](https://img.shields.io/npm/v/@thadeu/logger-storage.svg)](https://www.npmjs.com/package/@thadeu/logger-storage)
+[![Build Status](https://travis-ci.org/thadeu/logger-storage.svg?branch=master)](https://travis-ci.org/thadeu/logger-storage)
+![Minified size](http://img.badgesize.io/thadeu/logger-storage/master/dist/logger-storage.min.js.svg?label=min+size)
+![Minified+Gzip size](http://img.badgesize.io/thadeu/logger-storage/master/dist/logger-storage.min.js.svg?compression=gzip&label=min%2Bgzip+size)
+![License: MIT](https://img.shields.io/npm/l/@thadeu/logger-storage.svg)
 
 Console.log out of the box.
 
-## how to use?
+# Instalation
+This lib is available as a NPM package. To install it, use the following command:
 
-```js
-import * as loggerStorage from '@thadeu/logger-storage'
+```bash
+npm install @thadeu/logger-storage --save
 ```
 
-## Methods available
+If you're using Yarn (and you should):
+
+```bash
+yarn add @thadeu/logger-storage
+```
+
+# API
 
 * sync -> start process
 * logger -> save to localStorage
@@ -42,7 +53,11 @@ Type: `Array`
 
 Default: ['error', 'info', 'log', 'warn']
 
-## Example used sync
+## Usage
+
+```js
+import * as loggerStorage from '@thadeu/logger-storage'
+```
 
 ```js
 loggerStorage.sync({
