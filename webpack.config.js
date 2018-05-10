@@ -1,20 +1,30 @@
-const webpack = require('webpack');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
+let filename;
+let plugins = [];
+let mode;
 
-const htmlPlugin = new HtmlWebpackPlugin({
-  template: '../public/index.html'
-})
+if (process.env.NODE_ENV === "production") {
+  mode = "production";
+  filename = "web-console.min.js";
+  plugins.push(new UglifyJSPlugin({ sourceMap: true }));
+} else {
+  mode = "development";
+  filename = "web-console.js";
+}
 
-const config = {
-  context: path.resolve(__dirname, "src"),
-  entry: {
-    'web-console': "./index.js"
+module.exports = {
+  entry: path.resolve(__dirname, "src/web-console.js"),
+  devtool: "source-map",
+  target: "web",
+  node: {
+    fs: "empty"
   },
+  mode: mode,
   output: {
-    filename: "[name].[hash].min.js",
-    path: path.resolve(__dirname, "dist")
+    path: path.resolve(__dirname, "dist"),
+    filename: filename,
+    library: "webConsole"
   },
   module: {
     rules: [
@@ -22,54 +32,9 @@ const config = {
         test: /\.js$/,
         include: /src/,
         exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ['env']
-          }
-        }
-      },
-      { 
-        test: /\.html$/, use: ['html-loader']
-      },
-      {
-        test: /\.scss$/,
-        include: [path.resolve(__dirname, 'src')],
-        exclude: /node_modules/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                sourceMap: true,
-                minimize: true
-              }
-            },
-            {
-              loader: 'sass-loader',
-              options: {
-                sourceMap: true,
-                minimize: true
-              }
-            }
-          ],
-          fallback: 'style-loader'
-        })
+        use: ["babel-loader"]
       }
     ]
   },
-  resolve: {
-  },
-  plugins: [
-    new ExtractTextPlugin("[name].[hash].min.css"),
-    htmlPlugin,
-  ],
-  devServer: {
-    contentBase: path.resolve(__dirname, "./dist"),
-    compress: true,
-    stats: 'errors-only',
-    open: true
-  }
+  plugins: plugins
 }
-
-module.exports = config;

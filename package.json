@@ -6,7 +6,7 @@
     "console",
     "web-console",
     "export log",
-    "download log chrome"
+    "log chrome"
   ],
   "author": "Thadeu Esteves Jr",
   "main": "lib/web-console.js",
@@ -17,30 +17,43 @@
     "README.md"
   ],
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --progress --mode development --watch-content-base --open",
-    "build": "./node_modules/.bin/webpack --mode=production",
-    "test": "mocha --require babel-core/register \"test/**/*_test.js\"",
-    "dist": "yarn test && yarn build"
+    "start": "./node_modules/.bin/webpack-dev-server --progress --mode development --watch-content-base --open --config webpack.config.dev.js",
+    "build:minified": "env NODE_ENV=production ./node_modules/.bin/webpack --mode production",
+    "build:expanded": "./node_modules/.bin/webpack",
+    "build": "yarn test && yarn build:minified && yarn build:expanded",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  },
+  "jest": {
+    "setupFiles": [
+      "./config/setupTests.js",
+      "./config/browserMocks.js"
+    ],
+    "testMatch": [
+      "<rootDir>/__tests__/**/*.{js,jsx,mjs}",
+      "<rootDir>/__spec__/**/*.{js,jsx,mjs}",
+      "<rootDir>/test/**/*.{js,jsx,mjs}",
+      "<rootDir>/spec/**/*.{js,jsx,mjs}",
+      "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,mjs}"
+    ]
   },
   "license": "MIT",
   "repository": "https://github.com/thadeu/web-console",
   "private": false,
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.3",
+    "babel-jest": "^22.4.3",
     "babel-loader": "^7.1.4",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-2": "^6.24.1",
-    "css-loader": "^0.28.11",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "jest": "^22.4.3",
     "jsdom": "^11.10.0",
-    "mocha": "^5.1.1",
-    "node-sass": "^4.9.0",
-    "sass-loader": "^7.0.1",
     "snap-shot": "^2.17.0",
-    "style-loader": "^0.21.0",
+    "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.8.0",
     "webpack-cli": "^2.1.3",
     "webpack-dev-server": "^3.1.4"
