@@ -21,15 +21,15 @@ describe('loggerStorage methods', () => {
   const dateToString = new Date().toLocaleString()
 
   describe('when setting options', () => {
-    const options = { isStorage: true }
+    const options = { auto_start: true }
 
     it('override is true', () => {
-      expect(loggerStorage.sync(options).isStorage()).toBe(true)
+      expect(loggerStorage.sync(options).autoStarted()).toBe(true)
     })
     
     it('override is false', () => {
-      options.isStorage = false
-      expect(loggerStorage.sync(options).isStorage()).toBe(false)
+      options.auto_start = false
+      expect(loggerStorage.sync(options).autoStarted()).toBe(false)
     })
   })
 
