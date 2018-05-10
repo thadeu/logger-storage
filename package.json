@@ -18,10 +18,10 @@
     "README.md"
   ],
   "scripts": {
-    "start": "webpack-dev-server --progress --mode development --watch-content-base --open --config webpack.config.dev.js",
+    "start": "webpack-dev-server --progress --mode development --watch-content-base --config webpack.config.dev.js",
     "build:minified": "env NODE_ENV=production ./node_modules/.bin/webpack --mode production",
-    "build:expanded": "webpack",
-    "build": "yarn test && yarn build:minified && yarn build:expanded",
+    "build:expanded": "env NODE_ENV=production ./node_modules/.bin/webpack",
+    "build": "npm test && npm build:minified && npm build:expanded",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
