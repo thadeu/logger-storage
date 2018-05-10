@@ -3723,7 +3723,7 @@ var filter = exports.filter = function () {
     }, _callee, this, [[3, 8]]);
   }));
 
-  return function filter(_x) {
+  return function filter(_x2) {
     return _ref.apply(this, arguments);
   };
 }();
@@ -3738,7 +3738,9 @@ var _storage = __webpack_require__(/*! ../storage */ "./src/storage/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function all(key) {
+function all() {
+  var key = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : STORAGE_KEY;
+
   return new _promise2.default(function (resolve, reject) {
     try {
       var items = (0, _storage.getItem)(key);
@@ -3846,19 +3848,72 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function sync(options) {
   options = options || {};
 
-  var _isStorage = 'isStorage' in options ? options.isStorage : true;
-  var reloadClear = 'reloadClear' in options ? options.reloadClear : true;
+  var auto_start = 'auto_start' in options ? options.auto_start : true;
+  var _reloadClear = 'reloadClear' in options ? options.reloadClear : true;
+  var watchOnly = 'only' in options ? options.only : ['error', 'log', 'info', 'warn', 'debug'];
 
-  if (reloadClear) {
+  if (_reloadClear) {
     (0, _storage.clear)();
   }
 
-  onStorage(_isStorage);
+  onStorage(auto_start, watchOnly);
 
   return {
-    isStorage: function isStorage() {
-      return _isStorage;
+    autoStarted: function autoStarted() {
+      return auto_start;
+    },
+    reloadClear: function reloadClear() {
+      return _reloadClear;
     }
+  };
+}
+
+function onStorage(auto_start, watchOnly) {
+  var $_log = window.console.log;
+  var $_info = window.console.info;
+  var $_error = window.console.error;
+  var $_warn = window.console.warn;
+
+  var console = window.console;
+
+  console.error = function (message) {
+    $_error(message);
+
+    if (auto_start && watchOnly.includes('error')) {
+      logger(message, { type: 'error' });
+    }
+
+    return message;
+  };
+
+  console.log = function (message) {
+    $_log(message);
+
+    if (auto_start && watchOnly.includes('log')) {
+      logger(message, { type: 'log' });
+    }
+
+    return message;
+  };
+
+  console.warn = function (message) {
+    $_warn(message);
+
+    if (auto_start && watchOnly.includes('warn')) {
+      logger(message, { type: 'warn' });
+    }
+
+    return message;
+  };
+
+  console.info = function (message) {
+    $_info(message);
+
+    if (auto_start && watchOnly.includes('info')) {
+      logger(message, { type: 'info' });
+    }
+
+    return message;
   };
 }
 
@@ -3882,55 +3937,6 @@ function logger(text) {
 
   (0, _storage.setItem)(STORAGE_KEY, items);
   return items;
-}
-
-function onStorage(isStorage) {
-  var $_log = window.console.log;
-  var $_info = window.console.info;
-  var $_error = window.console.error;
-  var $_warn = window.console.warn;
-
-  var console = window.console;
-
-  console.error = function (message) {
-    $_error(message);
-
-    if (isStorage) {
-      logger(message, { type: 'error' });
-    }
-
-    return message;
-  };
-
-  console.log = function (message) {
-    $_log(message);
-
-    if (isStorage) {
-      logger(message, { type: 'log' });
-    }
-
-    return message;
-  };
-
-  console.warn = function (message) {
-    $_warn(message);
-
-    if (isStorage) {
-      logger(message, { type: 'warn' });
-    }
-
-    return message;
-  };
-
-  console.info = function (message) {
-    $_info(message);
-
-    if (isStorage) {
-      logger(message, { type: 'info' });
-    }
-
-    return message;
-  };
 }
 
 window.STORAGE_KEY = 'logger:storage';

@@ -20,8 +20,8 @@
   "scripts": {
     "start": "webpack-dev-server --progress --mode development --watch-content-base --config webpack.config.dev.js",
     "build:minified": "env NODE_ENV=production ./node_modules/.bin/webpack --mode production",
-    "build:expanded": "env NODE_ENV=production ./node_modules/.bin/webpack",
-    "build": "npm test && npm build:minified && npm build:expanded",
+    "build:expanded": "./node_modules/.bin/webpack",
+    "build": "npm run test && npm run build:minified && npm run build:expanded",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
