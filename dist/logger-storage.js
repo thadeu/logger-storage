@@ -1,4 +1,4 @@
-var webConsole =
+var loggerStorage =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -67,7 +67,7 @@ var webConsole =
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/web-console.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/logger-storage.js");
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -3772,56 +3772,10 @@ function infos() {
 
 /***/ }),
 
-/***/ "./src/storage/index.js":
-/*!******************************!*\
-  !*** ./src/storage/index.js ***!
-  \******************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof2 = __webpack_require__(/*! babel-runtime/helpers/typeof */ "./node_modules/babel-runtime/helpers/typeof.js");
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-var _stringify = __webpack_require__(/*! babel-runtime/core-js/json/stringify */ "./node_modules/babel-runtime/core-js/json/stringify.js");
-
-var _stringify2 = _interopRequireDefault(_stringify);
-
-exports.setItem = setItem;
-exports.getItem = getItem;
-exports.clear = clear;
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function setItem(key, entries) {
-  return localStorage.setItem(key, (0, _stringify2.default)(entries));
-}
-
-function getItem(key) {
-  var items = localStorage.getItem(key) ? localStorage.getItem(key) : null;
-  if (!items) {
-    return false;
-  }
-  return (typeof items === 'undefined' ? 'undefined' : (0, _typeof3.default)(items)) === 'object' ? items : JSON.parse(items);
-}
-
-function clear() {
-  return localStorage.removeItem(STORAGE_KEY);
-}
-
-/***/ }),
-
-/***/ "./src/web-console.js":
-/*!****************************!*\
-  !*** ./src/web-console.js ***!
-  \****************************/
+/***/ "./src/logger-storage.js":
+/*!*******************************!*\
+  !*** ./src/logger-storage.js ***!
+  \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3937,6 +3891,8 @@ function logger(text) {
 }
 
 function onOverride(override) {
+  var _arguments = arguments;
+
   var $_log = window.console.log;
   var $_info = window.console.info;
   var $_error = window.console.error;
@@ -3944,38 +3900,84 @@ function onOverride(override) {
 
   var console = window.console;
 
-  // console.error = (message) => {
-  //   $_error.apply(console, arguments);
-  //   if (override){
-  //     logger(message, { type: 'error'})
-  //   }
-  // };
+  console.error = function (message) {
+    $_error.apply(console, _arguments);
+    if (override) {
+      logger(message, { type: 'error' });
+    }
+  };
 
-  // console.log = (message) => {
-  //   $_log.apply(console, arguments);
-  //   if (override){
-  //     logger(message, { type: 'log'})
-  //   }
-  // };
+  console.log = function (message) {
+    $_log.apply(console, _arguments);
+    if (override) {
+      logger(message, { type: 'log' });
+    }
+  };
 
-  // console.warn = (message) => {
-  //   $_warn.apply(console, arguments)
-  //   if (override){
-  //     logger(message, { type: 'warn'})
-  //   }
-  // }
+  console.warn = function (message) {
+    $_warn.apply(console, _arguments);
+    if (override) {
+      logger(message, { type: 'warn' });
+    }
+  };
 
-  // console.info = (message) => {
-  //   $_info.apply(console, arguments)
-  //   if (override){
-  //     logger(message, { type: 'info'})
-  //   }
-  // }
+  console.info = function (message) {
+    $_info.apply(console, _arguments);
+    if (override) {
+      logger(message, { type: 'info' });
+    }
+  };
 }
 
-window.STORAGE_KEY = 'wc:logger';
+window.STORAGE_KEY = 'logger:storage';
+
+/***/ }),
+
+/***/ "./src/storage/index.js":
+/*!******************************!*\
+  !*** ./src/storage/index.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof2 = __webpack_require__(/*! babel-runtime/helpers/typeof */ "./node_modules/babel-runtime/helpers/typeof.js");
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _stringify = __webpack_require__(/*! babel-runtime/core-js/json/stringify */ "./node_modules/babel-runtime/core-js/json/stringify.js");
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+exports.setItem = setItem;
+exports.getItem = getItem;
+exports.clear = clear;
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function setItem(key, entries) {
+  return localStorage.setItem(key, (0, _stringify2.default)(entries));
+}
+
+function getItem(key) {
+  var items = localStorage.getItem(key) ? localStorage.getItem(key) : null;
+  if (!items) {
+    return false;
+  }
+  return (typeof items === 'undefined' ? 'undefined' : (0, _typeof3.default)(items)) === 'object' ? items : JSON.parse(items);
+}
+
+function clear() {
+  return localStorage.removeItem(STORAGE_KEY);
+}
 
 /***/ })
 
 /******/ });
-//# sourceMappingURL=web-console.js.map
+//# sourceMappingURL=logger-storage.js.map

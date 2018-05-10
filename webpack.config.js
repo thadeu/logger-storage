@@ -6,15 +6,15 @@ let mode;
 
 if (process.env.NODE_ENV === "production") {
   mode = "production";
-  filename = "web-console.min.js";
+  filename = "logger-storage.min.js";
   plugins.push(new UglifyJSPlugin({ sourceMap: true }));
 } else {
   mode = "development";
-  filename = "web-console.js";
+  filename = "logger-storage.js";
 }
 
 module.exports = {
-  entry: path.resolve(__dirname, "src/web-console.js"),
+  entry: path.resolve(__dirname, "src/logger-storage.js"),
   devtool: "source-map",
   target: "web",
   node: {
@@ -24,7 +24,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: filename,
-    library: "webConsole"
+    library: "loggerStorage"
   },
   module: {
     rules: [

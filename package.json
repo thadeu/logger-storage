@@ -10,7 +10,7 @@
     "log chrome"
   ],
   "author": "Thadeu Esteves Jr",
-  "main": "lib/logger-storage.js",
+  "main": "dist/logger-storage.js",
   "module": "src/index.js",
   "files": [
     "src/logger-storage.js",
