@@ -2,7 +2,7 @@
 
 # Logger to localStorage
 
-Maintainer Thadeu Esteves Jr. <tadeuu@gmail.com>
+Console.log out of the box.
 
 ## how to use?
 
@@ -12,6 +12,7 @@ import * as loggerStorage from '@thadeu/logger-storage'
 
 ## Methods available
 
+* sync -> start process
 * logger -> save to localStorage
 * all -> get all logs
 * filter -> filter logs
@@ -20,19 +21,83 @@ import * as loggerStorage from '@thadeu/logger-storage'
 * warns -> filter only warns
 * infos -> filter only infos
 * clear -> clear storage
-* options -> determine if override methods console.*
 
-### options.override
+## .sync({ ...options })
 
-Type: `Boolean`
-
-Optional logger override methods, by default it will be false.
-
-### options.clearAlways
+#### auto_start
 
 Type: `Boolean`
 
-Optional logger clearAlways methods, by default it will be false.
+Default: true
+
+#### reloadClear
+
+Type: `Boolean`
+
+Default: true
+
+#### only
+
+Type: `Array`
+
+Default: ['error', 'info', 'log', 'warn']
+
+## Example used sync
+
+```js
+loggerStorage.sync({
+  only: ['error']
+})
+```
+
+## Get all logs
+
+```js
+loggerStorage.all().then((items) => {
+  console.log(items)
+})
+```
+
+## Get only errors
+
+```js
+loggerStorage.errors().then((items) => {
+  console.log(items)
+})
+```
+
+## Get only warns
+
+```js
+loggerStorage.warns().then((items) => {
+  console.log(items)
+})
+```
+
+## Get only infos
+
+```js
+loggerStorage.infos().then((items) => {
+  console.log(items)
+})
+```
+
+## Logger manually
+
+```js
+loggerStorage.logger('testing with logger storage', {
+  type: 'log', // 'error', 'info', 'log', 'warn'
+  // others custom attributes
+})
+```
+
+## Get only logs
+
+```js
+loggerStorage.logs().then((items) => {
+  console.log(items)
+})
+```
 
 ## Do you developer?
 
