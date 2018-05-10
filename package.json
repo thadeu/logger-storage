@@ -1,5 +1,5 @@
 {
-  "name": "logger-storage",
+  "name": "@thadeu/logger-storage",
   "version": "0.0.7",
   "description": "console.log out of the box, send to localStorage easily",
   "keywords": [
@@ -18,9 +18,9 @@
     "README.md"
   ],
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --progress --mode development --watch-content-base --open --config webpack.config.dev.js",
+    "start": "webpack-dev-server --progress --mode development --watch-content-base --open --config webpack.config.dev.js",
     "build:minified": "env NODE_ENV=production ./node_modules/.bin/webpack --mode production",
-    "build:expanded": "./node_modules/.bin/webpack",
+    "build:expanded": "webpack",
     "build": "yarn test && yarn build:minified && yarn build:expanded",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -40,7 +40,10 @@
     ]
   },
   "license": "MIT",
-  "repository": "https://github.com/thadeu/logger-storage",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thadeu/logger-storage.git"
+  },
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-jest": "^22.4.3",
@@ -57,5 +60,10 @@
     "webpack": "^4.8.0",
     "webpack-cli": "^2.1.3",
     "webpack-dev-server": "^3.1.4"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/thadeu/logger-storage/issues"
+  },
+  "homepage": "https://github.com/thadeu/logger-storage#readme",
+  "dependencies": {}
 }
