@@ -45,29 +45,29 @@ describe('loggerStorage methods', () => {
     })
     
     it('new entry type error', () => {
-      let options = { text: 'testing new entry', type: 'error', created_at: dateToString }
+      let options = { body: 'testing new entry', type_event: 'error', created_at: dateToString }
       let items = loggerStorage.logger(null, options)
       expect(getItem(STORAGE_KEY)[0]).toEqual(options)
     })
     
     it('new entry type warn', () => {
-      let options = { text: 'testing new entry', type: 'warn', created_at: dateToString }
+      let options = { body: 'testing new entry', type_event: 'warn', created_at: dateToString }
       let items = loggerStorage.logger(null, options)
       expect(getItem(STORAGE_KEY)[0]).toEqual(options)
     })
     
     it('new entry type info', () => {
-      let options = { text: 'testing new entry', type: 'info', created_at: dateToString }
+      let options = { body: 'testing new entry', type_event: 'info', created_at: dateToString }
       let items = loggerStorage.logger(null, options)
       expect(getItem(STORAGE_KEY)[0]).toEqual(options)
     })
   })
 
   describe('filters records in localStorage', () => {
-    let error = { text: 'testing new entry', type: 'error', created_at: dateToString }
-    let info = { text: 'testing new entry', type: 'info', created_at: dateToString }
-    let warn = { text: 'testing new entry', type: 'warn', created_at: dateToString }
-    let log = { text: 'testing new entry', type: 'log', created_at: dateToString }
+    let error = { body: 'testing new entry', type_event: 'error', created_at: dateToString }
+    let info = { body: 'testing new entry', type_event: 'info', created_at: dateToString }
+    let warn = { body: 'testing new entry', type_event: 'warn', created_at: dateToString }
+    let log = { body: 'testing new entry', type_event: 'log', created_at: dateToString }
 
     beforeEach(() => {
       loggerStorage.logger(null, error)
@@ -78,22 +78,22 @@ describe('loggerStorage methods', () => {
   
     it('when filter by log', async () => {      
       let items = await loggerStorage.logs()
-      expect(items && items[0].type).toBe('log')
+      expect(items && items[0].type_event).toBe('log')
     })
     
     it('when filter by error', async () => {      
       let items = await loggerStorage.errors()
-      expect(items && items[0].type).toBe('error')
+      expect(items && items[0].type_event).toBe('error')
     })
     
     it('when filter by info', async () => {      
       let items = await loggerStorage.infos()
-      expect(items && items[0].type).toBe('info')
+      expect(items && items[0].type_event).toBe('info')
     })
     
     it('when filter by warn', async () => {      
       let items = await loggerStorage.warns()
-      expect(items && items[0].type).toBe('warn')
+      expect(items && items[0].type_event).toBe('warn')
     })
 
     describe('when filter all logs', () => {

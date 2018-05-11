@@ -3706,7 +3706,7 @@ var filter = exports.filter = function () {
             alls = _context.sent;
             _context.prev = 3;
             items = alls.filter(function (item) {
-              return item.type == type;
+              return item.type_event == type;
             });
             return _context.abrupt('return', _promise2.default.resolve(items));
 
@@ -3880,7 +3880,7 @@ function onStorage(auto_start, watchOnly) {
     $_error(message);
 
     if (auto_start && watchOnly.includes('error')) {
-      logger(message, { type: 'error' });
+      logger(message, { type_event: 'error' });
     }
 
     return message;
@@ -3890,7 +3890,7 @@ function onStorage(auto_start, watchOnly) {
     $_log(message);
 
     if (auto_start && watchOnly.includes('log')) {
-      logger(message, { type: 'log' });
+      logger(message, { type_event: 'log' });
     }
 
     return message;
@@ -3900,7 +3900,7 @@ function onStorage(auto_start, watchOnly) {
     $_warn(message);
 
     if (auto_start && watchOnly.includes('warn')) {
-      logger(message, { type: 'warn' });
+      logger(message, { type_event: 'warn' });
     }
 
     return message;
@@ -3910,7 +3910,7 @@ function onStorage(auto_start, watchOnly) {
     $_info(message);
 
     if (auto_start && watchOnly.includes('info')) {
-      logger(message, { type: 'info' });
+      logger(message, { type_event: 'info' });
     }
 
     return message;
@@ -3924,8 +3924,8 @@ function logger(text) {
   var created_at = 'created_at' in data ? data.created_at : new Date().toLocaleString();
 
   var item = (0, _extends3.default)({}, data, {
-    type: data.type || 'log',
-    text: text || data.text,
+    type_event: data.type_event || 'log',
+    body: text || data.body,
     created_at: created_at
   });
 

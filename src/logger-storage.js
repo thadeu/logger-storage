@@ -34,7 +34,7 @@ function onStorage(auto_start, watchOnly) {
     $_error(message);
     
     if (auto_start && watchOnly.includes('error')){
-      logger(message, { type: 'error'})
+      logger(message, { type_event: 'error'})
     }
 
     return message
@@ -44,7 +44,7 @@ function onStorage(auto_start, watchOnly) {
     $_log(message);
     
     if (auto_start && watchOnly.includes('log')){
-      logger(message, { type: 'log'})
+      logger(message, { type_event: 'log'})
     }
 
     return message
@@ -54,7 +54,7 @@ function onStorage(auto_start, watchOnly) {
     $_warn(message)
     
     if (auto_start && watchOnly.includes('warn')){
-      logger(message, { type: 'warn'})
+      logger(message, { type_event: 'warn'})
     }
 
     return message
@@ -64,7 +64,7 @@ function onStorage(auto_start, watchOnly) {
     $_info(message)
     
     if (auto_start && watchOnly.includes('info')){
-      logger(message, { type: 'info'})
+      logger(message, { type_event: 'info'})
     }
 
     return message
@@ -77,8 +77,8 @@ export function logger(text, data = {}) {
 
   let item = {
     ...data,
-    type: data.type || 'log',
-    text: text || data.text, 
+    type_event: data.type_event || 'log',
+    body: text || data.body, 
     created_at: created_at
   }
 
