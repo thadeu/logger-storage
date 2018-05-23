@@ -1,5 +1,6 @@
 import { setItem, getItem, clear } from '../src/storage'
 import * as loggerStorage from '../src/logger-storage'
+import { stringify, parse } from '../src/utils'
 
 describe('Manage localStorage', () => {
   it("when setItem", () => {
@@ -18,7 +19,7 @@ describe('Manage localStorage', () => {
 })
 
 describe('loggerStorage methods', () => {
-  const dateToString = new Date().toLocaleString()
+  const dateToString = parse(stringify(new Date()))
 
   describe('when setting options', () => {
     const options = { auto_start: true }
@@ -45,29 +46,29 @@ describe('loggerStorage methods', () => {
     })
     
     it('new entry type error', () => {
-      let options = { body: 'testing new entry', type_event: 'error', created_at: dateToString }
+      let options = { body: 'testing new entry', type_event: 'error', timestamp: dateToString }
       let items = loggerStorage.logger(null, options)
       expect(getItem(STORAGE_KEY)[0]).toEqual(options)
     })
     
     it('new entry type warn', () => {
-      let options = { body: 'testing new entry', type_event: 'warn', created_at: dateToString }
+      let options = { body: 'testing new entry', type_event: 'warn', timestamp: dateToString }
       let items = loggerStorage.logger(null, options)
       expect(getItem(STORAGE_KEY)[0]).toEqual(options)
     })
     
     it('new entry type info', () => {
-      let options = { body: 'testing new entry', type_event: 'info', created_at: dateToString }
+      let options = { body: 'testing new entry', type_event: 'info', timestamp: dateToString }
       let items = loggerStorage.logger(null, options)
       expect(getItem(STORAGE_KEY)[0]).toEqual(options)
     })
   })
 
   describe('filters records in localStorage', () => {
-    let error = { body: 'testing new entry', type_event: 'error', created_at: dateToString }
-    let info = { body: 'testing new entry', type_event: 'info', created_at: dateToString }
-    let warn = { body: 'testing new entry', type_event: 'warn', created_at: dateToString }
-    let log = { body: 'testing new entry', type_event: 'log', created_at: dateToString }
+    let error = { body: 'testing new entry', type_event: 'error', timestamp: dateToString }
+    let info = { body: 'testing new entry', type_event: 'info', timestamp: dateToString }
+    let warn = { body: 'testing new entry', type_event: 'warn', timestamp: dateToString }
+    let log = { body: 'testing new entry', type_event: 'log', timestamp: dateToString }
 
     beforeEach(() => {
       loggerStorage.logger(null, error)
