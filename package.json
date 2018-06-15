@@ -65,5 +65,9 @@
     "url": "https://github.com/thadeu/logger-storage/issues"
   },
   "homepage": "https://github.com/thadeu/logger-storage#readme",
-  "dependencies": {}
+  "dependencies": {
+    "localforage": "^1.7.1",
+    "localforage-getitems": "^1.4.2",
+    "localforage-startswith": "^1.4.0"
+  }
 }

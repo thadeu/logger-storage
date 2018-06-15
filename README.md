@@ -60,11 +60,11 @@ Default: ['error', 'info', 'log', 'warn']
 ## Usage
 
 ```js
-import * as loggerStorage from '@thadeu/logger-storage'
+import * as LoggerStorage from '@thadeu/logger-storage'
 ```
 
 ```js
-loggerStorage.sync({
+LoggerStorage.sync({
   only: ['error']
 })
 ```
@@ -72,7 +72,15 @@ loggerStorage.sync({
 ## Get all logs
 
 ```js
-loggerStorage.all().then((items) => {
+LoggerStorage.all().then((items) => {
+  console.log(items)
+})
+```
+
+## Get only logs
+
+```js
+LoggerStorage.logs().then((items) => {
   console.log(items)
 })
 ```
@@ -80,7 +88,7 @@ loggerStorage.all().then((items) => {
 ## Get only errors
 
 ```js
-loggerStorage.errors().then((items) => {
+LoggerStorage.errors().then((items) => {
   console.log(items)
 })
 ```
@@ -88,7 +96,7 @@ loggerStorage.errors().then((items) => {
 ## Get only warns
 
 ```js
-loggerStorage.warns().then((items) => {
+LoggerStorage.warns().then((items) => {
   console.log(items)
 })
 ```
@@ -104,18 +112,20 @@ loggerStorage.infos().then((items) => {
 ## Logger manually
 
 ```js
-loggerStorage.logger('testing with logger storage', {
-  type: 'log', // 'error', 'info', 'log', 'warn'
+LoggerStorage.sync({
+  auto_start: false
+})
+
+LoggerStorage.logger('testing with logger storage', {
+  type_event: 'log', // 'error', 'info', 'log', 'warn'
+  timestamp: new Date()
   // others custom attributes
 })
 ```
 
-## Get only logs
-
+## Clear all logs
 ```js
-loggerStorage.logs().then((items) => {
-  console.log(items)
-})
+LoggerStorage.clear()
 ```
 
 ## Do you developer?

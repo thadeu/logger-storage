@@ -1,26 +1,18 @@
-import { setItem, getItem } from '../storage'
-
-export function all(key = STORAGE_KEY) {
+export function all() {
   return new Promise((resolve, reject) => {
     try{
-      let items = getItem(key)
-
-      if (items) {
-        return resolve(getItem(key))
-      }
-
-      return resolve({ error: true, message: 'Undefined record in localStorage' })
+      resolve($_forage.startsWith('loggerStorage'))
     } catch (e) {
-      reject(new Error(`Error when find ${key}`))
+      reject(new Error(`Error : ${e}`))
     }
   })
 }
 
 export async function filter(type) {
-  let alls = await all(STORAGE_KEY)
+  let alls = await all()
   
   try {
-    let items = alls.filter(item => item.type_event == type) 
+    let items = Object.values(alls).filter(item => item.type_event == type) 
     return Promise.resolve(items)
   } catch (error) {
     return new Error(`We dont able to get logs: ${error}`)

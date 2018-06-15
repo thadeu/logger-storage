@@ -1,7 +1,6 @@
-export { clear } from './storage'
-
-import { setItem, getItem, clear } from './storage'
 export { all, filter, logs, errors, warns, infos } from './filters'
+
+import forage from "./configureForage"
 import { stringify, parse } from './utils'
 
 export function sync(options) {
@@ -12,23 +11,17 @@ export function sync(options) {
   const watchOnly = ('only' in options) ? options.only : ['error', 'log', 'info', 'warn', 'debug']
 
   if (reloadClear) {
-    clear()
+    forage.clear()
   }
   
-  onStorage(auto_start, watchOnly)
-  
-  return {
-    autoStarted: () => auto_start,
-    reloadClear: () => reloadClear
-  }
+  _onStorage(auto_start, watchOnly)
 }
 
-function onStorage(auto_start, watchOnly) {
+function _onStorage(auto_start, watchOnly) {
   const $_log = window.console.log;
   const $_info = window.console.info;
   const $_error = window.console.error;
   const $_warn = window.console.warn;
-
   const console = window.console;
 
   console.error = (message) => {
@@ -72,25 +65,17 @@ function onStorage(auto_start, watchOnly) {
   }
 }
 
-export function logger(text, data = {}) {
-  let items = getItem(STORAGE_KEY) || []
-  let timestamp = ('timestamp' in data) ? data.timestamp : parse(stringify(new Date()))
-
+export async function logger(text, data = {}) {
   let item = {
     ...data,
     type_event: data.type_event || 'log',
     body: text || data.body, 
-    timestamp: timestamp
+    timestamp: ('timestamp' in data) ? data.timestamp : parse(stringify(new Date()))
   }
 
-  if (!items || items.length <= 0){
-    items = [item]
-  }else {
-    items.push(item)
-  }
-
-  setItem(STORAGE_KEY, items)
-  return items
+  return forage.setItem(`${STORAGE_KEY}@${Date.now()}`, item)
 }
 
-window.STORAGE_KEY = 'logger:storage'
+export function clear() {
+  return forage.clear()
+}
