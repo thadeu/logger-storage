@@ -73,7 +73,13 @@ export async function logger(text, data = {}) {
     timestamp: ('timestamp' in data) ? data.timestamp : parse(stringify(new Date()))
   }
 
-  return forage.setItem(`${STORAGE_KEY}@${Date.now()}`, item)
+  try {
+    return forage.setItem(`${STORAGE_KEY}@${Date.now()}`, item)
+  } catch(domException) {
+    if (domException.name === 'QuotaExceededError' || domException.name === 'NS_ERROR_DOM_QUOTA_REACHED') {
+      clear()
+    }
+  }
 }
 
 export function clear() {
