@@ -1,6 +1,6 @@
 {
   "name": "@thadeu/logger-storage",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "console.log out of the box, send to localStorage easily",
   "keywords": [
     "console",
