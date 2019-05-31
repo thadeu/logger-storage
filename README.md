@@ -9,6 +9,7 @@
 Console.log out of the box.
 
 # Instalation
+
 This lib is available as a NPM package. To install it, use the following command:
 
 ```bash
@@ -23,19 +24,19 @@ yarn add @thadeu/logger-storage
 
 If you dont use ES6/7/8/x, use unpkg file
 
-[https://unpkg.com/@thadeu/logger-storage/dist/logger-storage.min.js](https://unpkg.com/@thadeu/logger-storage/dist/logger-storage.min.js)
+[https://unpkg.com/@thadeu/logger-storage@0.1.11/dist/logger-storage.min.js](https://unpkg.com/@thadeu/logger-storage@0.1.11/dist/logger-storage.min.js)
 
 # API
 
-* sync -> start process
-* logger -> save to localStorage
-* all -> get all logs
-* filter -> filter logs
-* logs -> filter only logs
-* errors -> filter only errors
-* warns -> filter only warns
-* infos -> filter only infos
-* clear -> clear storage
+- sync -> start process
+- logger -> save to localStorage
+- all -> get all logs
+- filter -> filter logs
+- logs -> filter only logs
+- errors -> filter only errors
+- warns -> filter only warns
+- infos -> filter only infos
+- clear -> clear storage
 
 ## .sync({ ...options })
 
@@ -60,53 +61,53 @@ Default: ['error', 'info', 'log', 'warn']
 ## Usage
 
 ```js
-import * as LoggerStorage from '@thadeu/logger-storage'
+import * as LoggerStorage from "@thadeu/logger-storage";
 ```
 
 ```js
 LoggerStorage.sync({
-  only: ['error']
-})
+  only: ["error"]
+});
 ```
 
 ## Get all logs
 
 ```js
-LoggerStorage.all().then((items) => {
-  console.log(items)
-})
+LoggerStorage.all().then(items => {
+  console.log(items);
+});
 ```
 
 ## Get only logs
 
 ```js
-LoggerStorage.logs().then((items) => {
-  console.log(items)
-})
+LoggerStorage.logs().then(items => {
+  console.log(items);
+});
 ```
 
 ## Get only errors
 
 ```js
-LoggerStorage.errors().then((items) => {
-  console.log(items)
-})
+LoggerStorage.errors().then(items => {
+  console.log(items);
+});
 ```
 
 ## Get only warns
 
 ```js
-LoggerStorage.warns().then((items) => {
-  console.log(items)
-})
+LoggerStorage.warns().then(items => {
+  console.log(items);
+});
 ```
 
 ## Get only infos
 
 ```js
-loggerStorage.infos().then((items) => {
-  console.log(items)
-})
+loggerStorage.infos().then(items => {
+  console.log(items);
+});
 ```
 
 ## Logger manually
@@ -114,18 +115,19 @@ loggerStorage.infos().then((items) => {
 ```js
 LoggerStorage.sync({
   auto_start: false
-})
+});
 
-LoggerStorage.logger('testing with logger storage', {
-  type_event: 'log', // 'error', 'info', 'log', 'warn'
+LoggerStorage.logger("testing with logger storage", {
+  type_event: "log", // 'error', 'info', 'log', 'warn'
   timestamp: new Date()
   // others custom attributes
-})
+});
 ```
 
 ## Clear all logs
+
 ```js
-LoggerStorage.clear()
+LoggerStorage.clear();
 ```
 
 ## Do you developer?
@@ -158,6 +160,7 @@ That's it!
 Please respect the indentation rules and code style. And use 2 spaces, not tabs. And don't touch the version thing or distribution files; this will be made when a new version is going to be released.
 
 ## License
+
 (The MIT License)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the 'Software'), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
