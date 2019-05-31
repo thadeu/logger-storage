@@ -24,7 +24,7 @@ yarn add @thadeu/logger-storage
 
 If you dont use ES6/7/8/x, use unpkg file
 
-[https://unpkg.com/@thadeu/logger-storage@0.1.11/dist/logger-storage.min.js](https://unpkg.com/@thadeu/logger-storage@0.1.11/dist/logger-storage.min.js)
+[https://unpkg.com/@thadeu/logger-storage@0.1.12/dist/logger-storage.min.js](https://unpkg.com/@thadeu/logger-storage@0.1.12/dist/logger-storage.min.js)
 
 # API
 
