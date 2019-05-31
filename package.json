@@ -18,7 +18,7 @@
     "README.md"
   ],
   "scripts": {
-    "build": "webpack --config=webpack.config.js --mode=production",
+    "build": "env NODE_ENV=production webpack --config=webpack.config.js --mode=production",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
