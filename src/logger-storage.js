@@ -26,9 +26,15 @@ function _onStorage(auto_start, watchOnly) {
   const $_error = window.console.error;
   const $_warn = window.console.warn;
   const console = window.console;
+  const isObject = text =>
+    Object.prototype.toString.call(text) == "[object Object]";
+  const isArray = text =>
+    Object.prototype.toString.call(text) == "[object Array]";
 
   console.error = message => {
     $_error(message);
+
+    if (isObject(message) || isArray(message)) return message;
 
     if (auto_start && watchOnly.includes("error")) {
       logger(message, { type_event: "error" });
@@ -40,6 +46,8 @@ function _onStorage(auto_start, watchOnly) {
   console.log = message => {
     $_log(message);
 
+    if (isObject(message) || isArray(message)) return message;
+
     if (auto_start && watchOnly.includes("log")) {
       logger(message, { type_event: "log" });
     }
@@ -50,6 +58,8 @@ function _onStorage(auto_start, watchOnly) {
   console.warn = message => {
     $_warn(message);
 
+    if (isObject(message) || isArray(message)) return message;
+
     if (auto_start && watchOnly.includes("warn")) {
       logger(message, { type_event: "warn" });
     }
@@ -59,6 +69,8 @@ function _onStorage(auto_start, watchOnly) {
 
   console.info = message => {
     $_info(message);
+
+    if (isObject(message) || isArray(message)) return message;
 
     if (auto_start && watchOnly.includes("info")) {
       logger(message, { type_event: "info" });
@@ -72,7 +84,7 @@ export async function logger(text, data = {}) {
   let item = {
     ...data,
     type_event: data.type_event || "log",
-    body: JSON.stringify(text || data.body),
+    body: text || data.body,
     timestamp:
       "timestamp" in data ? data.timestamp : parse(stringify(new Date()))
   };
