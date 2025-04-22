@@ -8,6 +8,7 @@ export function sync(options) {
 
   const auto_start = "auto_start" in options ? options.auto_start : true;
   const reloadClear = "reloadClear" in options ? options.reloadClear : true;
+  const useOriginal = "useOriginal" in options ? options.useOriginal : false;
   const watchOnly =
     "only" in options
       ? options.only
@@ -17,22 +18,37 @@ export function sync(options) {
     forage.clear();
   }
 
-  _onStorage(auto_start, watchOnly);
+  _onStorage(auto_start, watchOnly, useOriginal);
 }
 
-function _onStorage(auto_start, watchOnly) {
+function _onStorage(auto_start, watchOnly, useOriginal) {
   const $_log = window.console.log;
+  const $_debug = window.console.debug;
   const $_info = window.console.info;
   const $_error = window.console.error;
   const $_warn = window.console.warn;
   const console = window.console;
+
   const isObject = text =>
     Object.prototype.toString.call(text) == "[object Object]";
+
   const isArray = text =>
     Object.prototype.toString.call(text) == "[object Array]";
 
+  console.debug = message => {
+    if (useOriginal) $_debug(message);
+
+    if (isObject(message) || isArray(message)) return message;
+
+    if (auto_start && watchOnly.includes("debug")) {
+      logger(message, { type_event: "debug" });
+    }
+
+    return message;
+  };
+
   console.error = message => {
-    $_error(message);
+    if (useOriginal) $_error(message);
 
     if (isObject(message) || isArray(message)) return message;
 
@@ -44,7 +60,7 @@ function _onStorage(auto_start, watchOnly) {
   };
 
   console.log = message => {
-    $_log(message);
+    if (useOriginal) $_log(message);
 
     if (isObject(message) || isArray(message)) return message;
 
@@ -56,7 +72,7 @@ function _onStorage(auto_start, watchOnly) {
   };
 
   console.warn = message => {
-    $_warn(message);
+    if (useOriginal) $_warn(message);
 
     if (isObject(message) || isArray(message)) return message;
 
@@ -68,7 +84,7 @@ function _onStorage(auto_start, watchOnly) {
   };
 
   console.info = message => {
-    $_info(message);
+    if (useOriginal) $_info(message);
 
     if (isObject(message) || isArray(message)) return message;
 
