@@ -8,7 +8,8 @@ export function sync(options) {
 
   const auto_start = "auto_start" in options ? options.auto_start : true;
   const reloadClear = "reloadClear" in options ? options.reloadClear : true;
-  const useOriginal = "useOriginal" in options ? options.useOriginal : false;
+  const isLogOutput = "isLogOutput" in options ? options.isLogOutput : true;
+
   const watchOnly =
     "only" in options
       ? options.only
@@ -18,15 +19,18 @@ export function sync(options) {
     forage.clear();
   }
 
-  _onStorage(auto_start, watchOnly, useOriginal);
+  _onStorage(auto_start, watchOnly, isLogOutput);
 }
 
-function _onStorage(auto_start, watchOnly, useOriginal) {
+function _onStorage(auto_start, watchOnly, isLogOutput) {
   const $_log = window.console.log;
   const $_debug = window.console.debug;
   const $_info = window.console.info;
   const $_error = window.console.error;
   const $_warn = window.console.warn;
+  const $_group = window.console.group;
+  const $_groupCollapsed = window.console.groupCollapsed;
+  const $_groupEnd = window.console.groupEnd;
   const console = window.console;
 
   const isObject = text =>
@@ -35,8 +39,20 @@ function _onStorage(auto_start, watchOnly, useOriginal) {
   const isArray = text =>
     Object.prototype.toString.call(text) == "[object Array]";
 
+  console.group = message => {
+    if (isLogOutput) $_group(message);
+  };
+
+  console.groupEnd = () => {
+    if (isLogOutput) $_groupEnd();
+  };
+
+  console.groupCollapsed = message => {
+    if (isLogOutput) $_groupCollapsed(message);
+  };
+
   console.debug = message => {
-    if (useOriginal) $_debug(message);
+    if (isLogOutput) $_debug(message);
 
     if (isObject(message) || isArray(message)) return message;
 
@@ -48,7 +64,7 @@ function _onStorage(auto_start, watchOnly, useOriginal) {
   };
 
   console.error = message => {
-    if (useOriginal) $_error(message);
+    if (isLogOutput) $_error(message);
 
     if (isObject(message) || isArray(message)) return message;
 
@@ -60,7 +76,7 @@ function _onStorage(auto_start, watchOnly, useOriginal) {
   };
 
   console.log = message => {
-    if (useOriginal) $_log(message);
+    if (isLogOutput) $_log(message);
 
     if (isObject(message) || isArray(message)) return message;
 
@@ -72,7 +88,7 @@ function _onStorage(auto_start, watchOnly, useOriginal) {
   };
 
   console.warn = message => {
-    if (useOriginal) $_warn(message);
+    if (isLogOutput) $_warn(message);
 
     if (isObject(message) || isArray(message)) return message;
 
@@ -84,7 +100,7 @@ function _onStorage(auto_start, watchOnly, useOriginal) {
   };
 
   console.info = message => {
-    if (useOriginal) $_info(message);
+    if (isLogOutput) $_info(message);
 
     if (isObject(message) || isArray(message)) return message;
 

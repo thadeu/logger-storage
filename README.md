@@ -70,6 +70,14 @@ LoggerStorage.sync({
 });
 ```
 
+If you need only collect but dont print in the console, use `isLogOutput: false`:
+
+```js
+LoggerStorage.sync({
+  isLogOutput: false
+});
+```
+
 ## Get all logs
 
 ```js
